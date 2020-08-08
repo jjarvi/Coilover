@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 
-import kotlinx.android.synthetic.main.activity_new_event.*
 import kotlinx.android.synthetic.main.content_new_event.*
 
 

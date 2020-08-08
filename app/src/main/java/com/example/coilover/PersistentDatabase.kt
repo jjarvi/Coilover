@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(entities = [Event::class], version = 1, exportSchema = false)
-@TypeConverters(EventTypeConverters::class)
+@TypeConverters(EventTypeConverters::class, DateConverters::class)
 abstract class PersistentDatabase : RoomDatabase() {
 
     abstract fun eventDao(): EventDao
