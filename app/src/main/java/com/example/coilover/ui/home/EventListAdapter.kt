@@ -1,10 +1,12 @@
-package com.example.coilover
+package com.example.coilover.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coilover.Event
+import com.example.coilover.R
 import kotlinx.android.synthetic.main.eventlist_row.view.*
 
 
