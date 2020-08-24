@@ -1,9 +1,11 @@
 package com.example.coilover.ui.add
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -50,7 +52,13 @@ class AddFragment : Fragment() {
                 )
             )
             findNavController().navigate(R.id.navigation_home)
+            hideKeyboard(view)
         }
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun initDateInput() {
