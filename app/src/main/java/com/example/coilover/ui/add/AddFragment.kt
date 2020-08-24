@@ -62,7 +62,7 @@ class AddFragment : Fragment() {
     }
 
     private fun initDateInput() {
-        dateInput.setOnClickListener { view ->
+        dateInput.setOnClickListener { _ ->
             val builder = MaterialDatePicker.Builder.datePicker()
             val picker = builder.build()
             picker.show(childFragmentManager, picker.toString())
@@ -73,7 +73,7 @@ class AddFragment : Fragment() {
     }
 
     private fun initEventTypeInput() {
-        typeInput.setOnItemClickListener { parent, view, position, id ->
+        typeInput.setOnItemClickListener { _, _, _, id ->
             type = EventTypeConverters.intToType(id.toInt())
         }
 
