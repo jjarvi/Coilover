@@ -4,7 +4,12 @@
     <string name="title_home">Home</string>
     <string name="title_add">Add</string>
     <string name="title_stats">Stats</string>
-
+    <string name="title_settings_import">Import CSV</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="continue_button_text">Continue</string>
+    <string name="import_ready_text">Successfully imported %d events</string>
+    <string name="import_errors_text">Failed to import %d:</string>
+    <string name="save_button_text">Save</string>
     <string-array name="event_type_strings">
         <item>Refuel</item>
         <item>Wash</item>
@@ -12,4 +17,5 @@
         <item>Product</item>
         <item>Spare Part</item>
     </string-array>
+    <string name="title_activity_import_csv">ImportCsvActivity</string>
 </resources>

@@ -1,10 +1,9 @@
 package com.example.coilover.ui.add
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -13,13 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.coilover.*
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.fragment_add.*
-import java.text.DateFormat
-import java.util.*
+import java.time.LocalDate
 
 class AddFragment : Fragment() {
 
     private lateinit var addViewModel: AddViewModel
-    private lateinit var timestamp: Date
+    private lateinit var date: LocalDate;
     private lateinit var type: EventType
 
     override fun onCreateView(
@@ -27,24 +25,39 @@ class AddFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
         return inflater.inflate(R.layout.fragment_add, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setTimeStamp(Date())
+        setDate(LocalDate.now())
         initEventTypeInput()
         initDateInput()
         setSaveAction()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        return inflater.inflate(R.menu.settings_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings_import -> {
+                startActivity(Intent(activity, ImportCsvActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setSaveAction() {
         saveButton.setOnClickListener { view ->
             addViewModel.insert(
                 Event(
-                    timestamp,
+                    date,
                     getInt(odometerInput.text.toString()),
                     getDouble(priceInput.text.toString()),
                     getDouble(amountInput.text.toString()),
@@ -67,7 +80,7 @@ class AddFragment : Fragment() {
             val picker = builder.build()
             picker.show(childFragmentManager, picker.toString())
             picker.addOnPositiveButtonClickListener {
-                setTimeStamp(Date(it))
+                setDate(LocalDate.ofEpochDay(it))
             }
         }
     }
@@ -87,9 +100,9 @@ class AddFragment : Fragment() {
         typeInput.setAdapter(adapter)
     }
 
-    private fun setTimeStamp(date: Date) {
-        timestamp = date
-        dateInput.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp))
+    private fun setDate(date: LocalDate) {
+        this.date = date
+        dateInput.setText(date.toString())
     }
 
     private fun getInt(str: String): Int {

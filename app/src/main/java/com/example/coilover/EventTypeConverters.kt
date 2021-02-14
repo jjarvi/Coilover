@@ -1,6 +1,7 @@
 package com.example.coilover
 
 import androidx.room.TypeConverter
+import java.security.InvalidParameterException
 
 
 class EventTypeConverters {
@@ -21,6 +22,19 @@ class EventTypeConverters {
                 2 -> EventType.Service
                 3 -> EventType.Product
                 else -> EventType.SparePart
+            }
+        }
+
+        @TypeConverter
+        @JvmStatic
+        fun stringToType(value: String): EventType {
+            return when(value.toLowerCase()) {
+                "refuel"  -> EventType.Refuel
+                "wash"    -> EventType.Wash
+                "service" -> EventType.Service
+                "product" -> EventType.Product
+                "sparepart" -> EventType.SparePart
+                else -> throw InvalidParameterException()
             }
         }
     }
